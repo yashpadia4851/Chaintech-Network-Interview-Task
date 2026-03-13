@@ -122,7 +122,7 @@ export default function RegisterPage() {
             Already have an account?{" "}
             <Link
               to="/login"
-              className="font-medium text-slate-900 underline underline-offset-4"
+              className="font-medium text-slate-900"
             >
               Login
             </Link>

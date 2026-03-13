@@ -49,7 +49,7 @@ export default function DashboardLayout() {
             to="/dashboard"
             className="text-base font-bold tracking-tight text-slate-900 sm:text-lg"
           >
-            ChainTech Shop
+            E-Commerce Dashboard
           </Link>
 
           <div className="hidden items-center gap-4 md:flex">
@@ -96,7 +96,7 @@ export default function DashboardLayout() {
             </nav>
 
             <div className="flex items-center gap-3">
-              <div className="text-sm text-slate-600">
+              <div className="text-sm text-slate-600 mr-3">
                 Session{" "}
                 <span className="font-semibold text-slate-900">
                   {remainingText}
