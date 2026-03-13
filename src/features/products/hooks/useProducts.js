@@ -10,6 +10,7 @@ export function useProducts() {
 
   useEffect(() => {
     const controller = new AbortController();
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setState({ loading: true, error: "", data: [] });
     fetchProducts({ signal: controller.signal })
       .then((data) => setState({ loading: false, error: "", data }))
@@ -26,4 +27,3 @@ export function useProducts() {
 
   return state;
 }
-

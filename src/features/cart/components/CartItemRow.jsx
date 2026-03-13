@@ -65,4 +65,3 @@ export function CartItemRow({ item, onInc, onDec, onRemove }) {
     </div>
   );
 }
-

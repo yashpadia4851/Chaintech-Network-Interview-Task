@@ -11,4 +11,3 @@ export function EmptyState({ title = "Nothing here", description, action }) {
     </div>
   );
 }
-

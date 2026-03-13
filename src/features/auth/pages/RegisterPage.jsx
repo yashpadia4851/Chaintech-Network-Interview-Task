@@ -63,7 +63,9 @@ export default function RegisterPage() {
               autoComplete="email"
               placeholder="you@example.com"
               value={form.email}
-              onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
+              onChange={(e) =>
+                setForm((f) => ({ ...f, email: e.target.value }))
+              }
             />
             <Input
               label="Password"
@@ -73,7 +75,7 @@ export default function RegisterPage() {
               placeholder="••••••••"
               value={form.password}
               onChange={(e) =>
-                setForm((f) => ({ ...f, password: e.target.value }))
+                setForm((form) => ({ ...form, password: e.target.value }))
               }
             />
 
@@ -102,4 +104,3 @@ export default function RegisterPage() {
     </div>
   );
 }
-

@@ -1,33 +1,32 @@
-import React from "react";
 
-export const Input = React.forwardRef(function Input(
-  { label, hint, error, className = "", ...props },
-  ref,
-) {
+export function Input({ label, hint, error, className = "", ...props }) {
   return (
-    <label className={`block ${className}`}>
-      {label ? (
-        <span className="mb-1 block text-sm font-medium text-slate-800">
+    <div className={`block ${className}`}>
+      
+      {label && (
+        <label className="mb-1 block text-sm font-medium text-slate-800">
           {label}
-        </span>
-      ) : null}
+        </label>
+      )}
+
       <input
-        ref={ref}
-        className={[
-          "h-10 w-full rounded-lg bg-white px-3 text-sm text-slate-900 ring-1 ring-inset",
+        className={`h-10 w-full rounded-lg bg-white px-3 text-sm text-slate-900 outline-none placeholder:text-slate-400 
+        ${
           error
-            ? "ring-red-300 focus:ring-2 focus:ring-red-300"
-            : "ring-slate-200 focus:ring-2 focus:ring-slate-400",
-          "outline-none placeholder:text-slate-400",
-        ].join(" ")}
+            ? "ring-1 ring-red-300 focus:ring-2 focus:ring-red-300"
+            : "ring-1 ring-slate-200 focus:ring-2 focus:ring-slate-400"
+        }`}
         {...props}
       />
-      {error ? (
-        <span className="mt-1 block text-xs text-red-600">{error}</span>
-      ) : hint ? (
-        <span className="mt-1 block text-xs text-slate-500">{hint}</span>
-      ) : null}
-    </label>
-  );
-});
 
+      {error && (
+        <p className="mt-1 text-xs text-red-600">{error}</p>
+      )}
+
+      {!error && hint && (
+        <p className="mt-1 text-xs text-slate-500">{hint}</p>
+      )}
+
+    </div>
+  );
+}

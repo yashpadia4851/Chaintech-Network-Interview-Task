@@ -79,10 +79,15 @@ export default function CartPage() {
               <div className="my-3 h-px bg-slate-200" />
               <div className="flex items-center justify-between text-slate-900">
                 <span className="font-semibold">Total</span>
-                <span className="text-lg font-bold">{formatCurrency(total)}</span>
+                <span className="text-lg font-bold">
+                  {formatCurrency(total)}
+                </span>
               </div>
             </div>
-            <Button className="mt-4 w-full" onClick={() => alert("No backend — demo only.")}>
+            <Button
+              className="mt-4 w-full"
+              onClick={() => alert("No backend — demo only.")}
+            >
               Checkout (Demo)
             </Button>
             <Button
@@ -99,4 +104,3 @@ export default function CartPage() {
     </div>
   );
 }
-

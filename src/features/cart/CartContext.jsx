@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import React, { createContext, useCallback, useEffect, useMemo, useReducer } from "react";
 import { useAuth } from "../auth/useAuth";
 import { readCart, writeCart } from "./cartStorage";
@@ -47,7 +48,6 @@ export function CartProvider({ children }) {
   const { user, isAuthenticated } = useAuth();
   const [state, dispatch] = useReducer(reducer, { items: [] });
 
-  // load cart on login/user switch
   useEffect(() => {
     if (!isAuthenticated || !user?.id) {
       dispatch({ type: "SET", items: [] });

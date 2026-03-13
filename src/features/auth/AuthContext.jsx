@@ -14,7 +14,7 @@ function isSessionValid(session) {
 
 function sanitizeUser(user) {
   if (!user) return null;
-  const { password, ...rest } = user;
+  const { password: _password, ...rest } = user;
   return rest;
 }
 
@@ -52,7 +52,7 @@ export function AuthProvider({ children }) {
     const normalizedEmail = String(email || "").trim().toLowerCase();
     const user = users.find((u) => u.email.toLowerCase() === normalizedEmail);
     if (!user || user.password !== password) {
-      return { ok: false, error: "Invalid email or password." };
+      return { ok: false, error: "Credentials are not valid." };
     }
     const nextSession = {
       userId: user.id,
@@ -98,7 +98,6 @@ export function AuthProvider({ children }) {
     nextUsers[idx] = nextUser;
     setUsers(nextUsers);
 
-    // Keep session aligned to updated email
     const nextSession = { ...sess, email: nextUser.email };
     setSession(nextSession);
     setSessionState(nextSession);

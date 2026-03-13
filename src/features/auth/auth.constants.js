@@ -4,4 +4,3 @@ export const AUTH_STORAGE_KEYS = {
 };
 
 export const SESSION_DURATION_MS = 5 * 60 * 1000;
-

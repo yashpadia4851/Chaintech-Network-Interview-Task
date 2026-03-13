@@ -1,5 +1,11 @@
-import React, { useMemo, useState } from "react";
-import { Link, NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
+import {
+  Link,
+  NavLink,
+  Outlet,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import { Button } from "../../../shared/ui/Button";
 import { useAuth } from "../../auth/useAuth";
 import { useCart } from "../../cart/useCart";
@@ -15,7 +21,7 @@ const navLinkBase =
   "flex items-center justify-between rounded-lg px-3 py-2 text-sm font-medium transition-colors";
 
 export default function DashboardLayout() {
-  const { user, logout, sessionRemainingMs } = useAuth();
+  const { logout, sessionRemainingMs } = useAuth();
   const { itemCount } = useCart();
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
@@ -32,7 +38,8 @@ export default function DashboardLayout() {
   }
 
   // Close mobile menu after navigation
-  React.useEffect(() => setOpen(false), [location.pathname]);
+  // eslint-disable-next-line react-hooks/set-state-in-effect
+  useEffect(() => setOpen(false), [location.pathname]);
 
   return (
     <div className="min-h-dvh bg-slate-50">
@@ -54,10 +61,9 @@ export default function DashboardLayout() {
           <div className="hidden items-center gap-3 md:flex">
             <div className="text-sm text-slate-600">
               Session:{" "}
-              <span className="font-semibold text-slate-900">{remainingText}</span>
-            </div>
-            <div className="text-sm text-slate-600">
-              Hi, <span className="font-semibold text-slate-900">{user?.name}</span>
+              <span className="font-semibold text-slate-900">
+                {remainingText}
+              </span>
             </div>
             <Button variant="secondary" onClick={onLogout}>
               Logout
@@ -67,7 +73,7 @@ export default function DashboardLayout() {
       </header>
 
       <div className="mx-auto grid max-w-6xl grid-cols-1 gap-4 px-4 py-6 md:grid-cols-[240px_1fr]">
-        <aside className="md:sticky md:top-[72px] md:self-start">
+        <aside className="md:sticky md:top-18 md:self-start">
           <div
             className={[
               "rounded-2xl bg-white p-3 ring-1 ring-slate-200",
@@ -75,15 +81,18 @@ export default function DashboardLayout() {
             ].join(" ")}
           >
             <div className="px-3 pb-3 pt-2 md:hidden">
-              <div className="text-sm text-slate-600">
-                Hi, <span className="font-semibold text-slate-900">{user?.name}</span>
-              </div>
               <div className="mt-1 text-xs text-slate-500">
                 Session remaining:{" "}
-                <span className="font-semibold text-slate-900">{remainingText}</span>
+                <span className="font-semibold text-slate-900">
+                  {remainingText}
+                </span>
               </div>
               <div className="mt-3">
-                <Button variant="secondary" className="w-full" onClick={onLogout}>
+                <Button
+                  variant="secondary"
+                  className="w-full"
+                  onClick={onLogout}
+                >
                   Logout
                 </Button>
               </div>
@@ -146,4 +155,3 @@ export default function DashboardLayout() {
     </div>
   );
 }
-
