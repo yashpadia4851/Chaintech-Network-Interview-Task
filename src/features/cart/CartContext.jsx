@@ -55,7 +55,6 @@ export function CartProvider({ children }) {
     dispatch({ type: "SET", items: readCart(user.id) });
   }, [isAuthenticated, user?.id]);
 
-  // persist cart
   useEffect(() => {
     if (!isAuthenticated || !user?.id) return;
     writeCart(user.id, state.items);
@@ -69,6 +68,8 @@ export function CartProvider({ children }) {
         title: product.title,
         price: product.price,
         image: product.image,
+        rating: product.rating,
+        category: product.category,
       },
     });
   }, []);

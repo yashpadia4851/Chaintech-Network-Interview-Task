@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
-import { fetchProducts } from "./products.api";
+import axios from "axios";
+
+const API_URL = "https://dummyjson.com/products";
 
 export function useProducts() {
   const [state, setState] = useState({
@@ -7,22 +9,24 @@ export function useProducts() {
     error: "",
     data: [],
   });
- 
+
   useEffect(() => {
-    const controller = new AbortController();
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setState({ loading: true, error: "", data: [] });
-    fetchProducts({ signal: controller.signal })
-      .then((data) => setState({ loading: false, error: "", data }))
-      .catch((err) => {
-        if (controller.signal.aborted) return;
+    async function load() {
+      setState({ loading: true, error: "", data: [] });
+      try {
+        const response = await axios.get(API_URL);
+        const products = response?.data?.products ?? [];
+        setState({ loading: false, error: "", data: products });
+      } catch (err) {
         setState({
           loading: false,
           error: err?.message || "Something went wrong.",
           data: [],
         });
-      });
-    return () => controller.abort();
+      }
+    }
+
+    load();
   }, []);
 
   return state;
