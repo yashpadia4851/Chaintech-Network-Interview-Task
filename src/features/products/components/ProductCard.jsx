@@ -16,12 +16,12 @@ export function ProductCard({ product }) {
   const productForCart = { ...product, image: imageUrl };
 
   return (
-    <div className="flex h-full flex-col overflow-hidden rounded-2xl bg-white ring-1 ring-slate-200">
-      <div className="aspect-square bg-white p-6">
+    <div className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-md ring-1 ring-slate-200/80 transition-shadow duration-300 hover:shadow-xl">
+      <div className="aspect-square overflow-hidden bg-slate-50/50 p-6">
         <img
           src={imageUrl}
           alt={title}
-          className="h-full w-full object-contain"
+          className="h-full w-full object-contain transition-transform duration-300 ease-out group-hover:scale-110"
           loading="lazy"
         />
       </div>

@@ -5,7 +5,7 @@ import { formatCurrency } from "../../../utils/format";
 export function CartItemRow({ item, onInc, onDec, onRemove }) {
   const subtotal = item.qty * item.price;
   return (
-    <div className="flex flex-col gap-3 rounded-2xl bg-white p-4 ring-1 ring-slate-200 sm:flex-row sm:items-center">
+    <div className="flex flex-col gap-3 rounded-2xl bg-white p-4 shadow-md ring-1 ring-slate-200/60 sm:flex-row sm:items-center">
       <div className="flex items-center gap-4">
         <div className="h-16 w-16 flex-none overflow-hidden rounded-xl bg-slate-50 ring-1 ring-slate-100">
           <img

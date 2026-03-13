@@ -42,8 +42,8 @@ export default function DashboardLayout() {
   }, [location.pathname]);
 
   return (
-    <div className="min-h-dvh bg-slate-50">
-      <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/80 backdrop-blur">
+    <div className="min-h-dvh bg-slate-100/80">
+      <header className="sticky top-0 z-30 border-b border-slate-200/80 bg-white/90 shadow-sm backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3">
           <Link
             to="/dashboard"

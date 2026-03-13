@@ -10,10 +10,12 @@ export function Button({
 }) {
 
   const variants = {
-    primary: "bg-slate-900 text-white hover:bg-slate-800",
-    secondary: "bg-white text-slate-900 border border-slate-200 hover:bg-slate-50",
-    danger: "bg-red-600 text-white hover:bg-red-700",
-    ghost: "bg-transparent text-slate-900 hover:bg-slate-100",
+    primary:
+      "bg-slate-800 text-white shadow-sm hover:bg-slate-700 hover:shadow transition-colors",
+    secondary:
+      "bg-white text-slate-800 border border-slate-200 shadow-sm hover:bg-slate-50 hover:border-slate-300 transition-colors",
+    danger: "bg-red-600 text-white shadow-sm hover:bg-red-700 transition-colors",
+    ghost: "bg-transparent text-slate-800 hover:bg-slate-100 transition-colors",
   };
 
   const sizes = {
@@ -23,7 +25,7 @@ export function Button({
   };
 
   const base =
-    "inline-flex cursor-pointer items-center justify-center rounded-lg font-medium transition px-4 disabled:cursor-not-allowed disabled:opacity-50";
+    "inline-flex cursor-pointer items-center justify-center rounded-xl font-medium transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-50";
 
   return (
     <Component

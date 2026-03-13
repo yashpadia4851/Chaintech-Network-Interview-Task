@@ -64,7 +64,7 @@ export default function ProfilePage() {
         </div>
       </div>
 
-      <div className="rounded-2xl bg-white p-6 ring-1 ring-slate-200">
+      <div className="rounded-2xl bg-white p-6 shadow-md ring-1 ring-slate-200/60">
         <form
           className="grid grid-cols-1 gap-4 sm:grid-cols-2"
           onSubmit={handleSubmit(onSubmit)}

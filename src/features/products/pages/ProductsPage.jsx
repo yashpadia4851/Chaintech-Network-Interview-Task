@@ -42,7 +42,7 @@ export default function ProductsPage() {
             Search
           </span>
           <input
-            className="h-10 w-full rounded-lg bg-white px-3 text-sm text-slate-900 ring-1 ring-inset ring-slate-200 outline-none focus:ring-2 focus:ring-slate-400"
+            className="h-10 w-full rounded-xl bg-white px-3 text-sm text-slate-900 shadow-sm ring-1 ring-inset ring-slate-200 outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-0"
             placeholder="Search by title..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -51,7 +51,7 @@ export default function ProductsPage() {
       </div>
 
       {loading ? (
-        <div className="rounded-2xl bg-white p-8 text-center ring-1 ring-slate-200">
+        <div className="rounded-2xl bg-white p-8 text-center shadow-md ring-1 ring-slate-200/60">
           <div className="mx-auto flex w-fit items-center gap-3 text-sm text-slate-700">
             <Spinner />
             <span>Loading products...</span>

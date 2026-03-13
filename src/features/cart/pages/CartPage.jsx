@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 import { Button } from "../../../shared/Button";
 import { EmptyState } from "../../../shared/EmptyState";
 import { formatCurrency } from "../../../utils/format";
@@ -63,7 +64,7 @@ export default function CartPage() {
         </div>
 
         <div className="lg:sticky lg:top-[96px] lg:self-start">
-          <div className="rounded-2xl bg-white p-5 ring-1 ring-slate-200">
+          <div className="rounded-2xl bg-white p-5 shadow-md ring-1 ring-slate-200/60">
             <div className="text-base font-semibold text-slate-900">
               Order summary
             </div>
@@ -86,9 +87,11 @@ export default function CartPage() {
             </div>
             <Button
               className="mt-4 w-full"
-              onClick={() => alert("No backend — demo only.")}
+              onClick={() =>
+                toast.error("Buy Now feature not available — I didn't get permission to implement this.")
+              }
             >
-              Checkout (Demo)
+              Buy Now
             </Button>
             <Button
               as={Link}
