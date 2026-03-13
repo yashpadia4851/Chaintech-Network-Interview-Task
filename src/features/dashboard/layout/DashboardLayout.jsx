@@ -37,8 +37,6 @@ export default function DashboardLayout() {
     navigate("/login", { replace: true });
   }
 
-  // Close mobile menu after navigation
-  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => setOpen(false), [location.pathname]);
 
   return (

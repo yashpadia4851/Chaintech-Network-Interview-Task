@@ -1,4 +1,3 @@
-/* eslint-disable react-refresh/only-export-components */
 import React, { createContext, useCallback, useEffect, useMemo, useReducer } from "react";
 import { useAuth } from "../auth/useAuth";
 import { readCart, writeCart } from "./cartStorage";

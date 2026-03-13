@@ -1,14 +1,13 @@
 import React from "react";
 
 export function Button({
-  as: asComponent = "button",
+  as: Component = "button",
   variant = "primary",
   size = "md",
   className = "",
   children,
   ...props
 }) {
-  const Component = asComponent;
 
   const variants = {
     primary: "bg-slate-900 text-white hover:bg-slate-800",

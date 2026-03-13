@@ -14,7 +14,7 @@ function isSessionValid(session) {
 
 function sanitizeUser(user) {
   if (!user) return null;
-  const { password: _password, ...rest } = user;
+  const { password, ...rest } = user;
   return rest;
 }
 
