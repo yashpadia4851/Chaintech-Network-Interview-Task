@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
-import { Spinner } from "../../../shared/ui/Spinner";
-import { EmptyState } from "../../../shared/ui/EmptyState";
+import { Spinner } from "../../../shared/Spinner";
+import { EmptyState } from "../../../shared/EmptyState";
 import { useProducts } from "../hooks/useProducts";
 import { ProductCard } from "../components/ProductCard";
 

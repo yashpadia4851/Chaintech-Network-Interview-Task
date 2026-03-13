@@ -1,4 +1,4 @@
-import { readJson, writeJson } from "../../shared/lib/storage";
+import { readJson, writeJson } from "../../utils/storage";
 import { CART_STORAGE_PREFIX } from "./cart.constants";
 
 export function cartKey(userId) {

@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Button } from "../../../shared/ui/Button";
-import { EmptyState } from "../../../shared/ui/EmptyState";
-import { formatCurrency } from "../../../shared/lib/format";
+import { Button } from "../../../shared/Button";
+import { EmptyState } from "../../../shared/EmptyState";
+import { formatCurrency } from "../../../utils/format";
 import { useCart } from "../useCart";
 import { CartItemRow } from "../components/CartItemRow";
 

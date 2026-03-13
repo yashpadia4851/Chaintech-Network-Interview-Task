@@ -1,6 +1,6 @@
 import React from "react";
-import { Button } from "../../../shared/ui/Button";
-import { formatCurrency } from "../../../shared/lib/format";
+import { Button } from "../../../shared/Button";
+import { formatCurrency } from "../../../utils/format";
 
 export function CartItemRow({ item, onInc, onDec, onRemove }) {
   const subtotal = item.qty * item.price;

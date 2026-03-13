@@ -1,4 +1,4 @@
-import { readJson, writeJson, removeKey } from "../../shared/lib/storage";
+import { readJson, writeJson, removeKey } from "../../utils/storage";
 import { AUTH_STORAGE_KEYS } from "./auth.constants";
 
 export function getUsers() {

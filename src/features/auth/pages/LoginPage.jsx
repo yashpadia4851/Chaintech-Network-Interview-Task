@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { Button } from "../../../shared/ui/Button";
-import { Input } from "../../../shared/ui/Input";
+import { Button } from "../../../shared/Button";
+import { Input } from "../../../shared/Input";
 import { useAuth } from "../useAuth";
 
 export default function LoginPage() {
@@ -48,6 +48,7 @@ export default function LoginPage() {
               label="Email"
               type="email"
               placeholder="you@example.com"
+              autoComplete="email"
               required
               error={errors.email?.message}
               {...register("email", { required: "Email is required" })}
@@ -57,6 +58,7 @@ export default function LoginPage() {
               label="Password"
               type="password"
               placeholder="••••••••"
+              autoComplete="current-password"
               required
               error={errors.password?.message}
               {...register("password", { required: "Password is required" })}

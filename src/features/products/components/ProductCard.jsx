@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
-import { Button } from "../../../shared/ui/Button";
-import { formatCurrency } from "../../../shared/lib/format";
+import { Button } from "../../../shared/Button";
+import { formatCurrency } from "../../../utils/format";
 import { useCart } from "../../cart/useCart";
 
 export function ProductCard({ product }) {

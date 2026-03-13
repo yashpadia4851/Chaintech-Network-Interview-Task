@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { Button } from "../../../shared/ui/Button";
-import { Input } from "../../../shared/ui/Input";
+import { Button } from "../../../shared/Button";
+import { Input } from "../../../shared/Input";
 import { useAuth } from "../useAuth";
 
 export default function RegisterPage() {
@@ -62,7 +62,13 @@ export default function RegisterPage() {
               placeholder="Your name"
               required
               error={errors.name?.message}
-              {...register("name", { required: "Name is required" })}
+              {...register("name", {
+                required: "Name is required",
+                pattern: {
+                  value: /^[A-Za-z\s]+$/,
+                  message: "Name must contain only letters",
+                },
+              })}
             />
             <Input
               label="Email"

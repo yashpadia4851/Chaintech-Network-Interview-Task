@@ -6,7 +6,7 @@ import {
   useLocation,
   useNavigate,
 } from "react-router-dom";
-import { Button } from "../../../shared/ui/Button";
+import { Button } from "../../../shared/Button";
 import { useAuth } from "../../auth/useAuth";
 import { useCart } from "../../cart/useCart";
 

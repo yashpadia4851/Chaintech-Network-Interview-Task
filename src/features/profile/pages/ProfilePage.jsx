@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
-import { Button } from "../../../shared/ui/Button";
-import { Input } from "../../../shared/ui/Input";
+import { Button } from "../../../shared/Button";
+import { Input } from "../../../shared/Input";
 import { useAuth } from "../../auth/useAuth";
 
 export default function ProfilePage() {
