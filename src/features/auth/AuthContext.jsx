@@ -1,4 +1,5 @@
 import React, { createContext, useCallback, useEffect, useMemo, useState } from "react";
+import toast from "react-hot-toast";
 import { clearSession, getSession, getUsers, setSession, setUsers } from "./authStorage";
 import { SESSION_DURATION_MS } from "./auth.constants";
 
@@ -31,6 +32,7 @@ export function AuthProvider({ children }) {
     if (session && !isSessionValid(session)) {
       clearSession();
       setSessionState(null);
+      toast.error("Your session was over please login again!");
     }
   }, [session, tick]);
 

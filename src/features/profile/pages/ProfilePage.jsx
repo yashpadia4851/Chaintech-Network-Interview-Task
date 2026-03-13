@@ -1,40 +1,53 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { Button } from "../../../shared/Button";
 import { Input } from "../../../shared/Input";
 import { useAuth } from "../../auth/useAuth";
 
 export default function ProfilePage() {
   const { user, updateProfile } = useAuth();
-  const [form, setForm] = useState({
-    name: user?.name || "",
-    email: user?.email || "",
-    password: "",
-  });
   const [busy, setBusy] = useState(false);
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
 
-  const canSave = useMemo(() => {
-    return form.name.trim().length > 0 && form.email.trim().length > 0 && !busy;
-  }, [form, busy]);
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm({
+    mode: "onChange",
+    defaultValues: {
+      name: user?.name || "",
+      email: user?.email || "",
+      password: "",
+      confirmPassword: "",
+    },
+  });
 
-  async function onSubmit(e) {
-    e.preventDefault();
-    setError("");
-    setSuccess("");
+  const { name = "", email = "", password = "", confirmPassword = "" } = watch();
+  const passwordsMatch = password === confirmPassword;
+  const isFormValid =
+    Boolean(
+      name.trim() &&
+        email.trim() &&
+        password.trim() &&
+        confirmPassword.trim() &&
+        passwordsMatch
+    ) && !busy;
+
+  async function onSubmit(values) {
     setBusy(true);
     try {
       const res = updateProfile({
-        name: form.name,
-        email: form.email,
-        ...(form.password ? { password: form.password } : {}),
+        name: values.name,
+        email: values.email,
+        password: values.password,
       });
       if (!res.ok) {
-        setError(res.error || "Failed to update profile.");
+        toast.error(res.error || "Failed to update profile.");
         return;
       }
-      setSuccess("Profile updated successfully.");
-      setForm((f) => ({ ...f, password: "" }));
+      toast.success("Profile updated successfully.");
     } finally {
       setBusy(false);
     }
@@ -54,58 +67,70 @@ export default function ProfilePage() {
       <div className="rounded-2xl bg-white p-6 ring-1 ring-slate-200">
         <form
           className="grid grid-cols-1 gap-4 sm:grid-cols-2"
-          onSubmit={onSubmit}
+          onSubmit={handleSubmit(onSubmit)}
         >
           <Input
             label="Name"
-            value={form.name}
-            onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
+            required
+            error={errors.name?.message}
+            {...register("name", {
+              required: "Name is required",
+              pattern: {
+                value: /^[A-Za-z\s]+$/,
+                message: "Name must contain only letters",
+              },
+            })}
           />
           <Input
             label="Email"
             type="email"
-            value={form.email}
-            onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
+            required
+            autoComplete="email"
+            error={errors.email?.message}
+            {...register("email", {
+              required: "Email is required",
+              pattern: {
+                value: /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,6}$/,
+                message: "Invalid email",
+              },
+            })}
           />
           <div className="sm:col-span-2">
             <Input
               label="Password"
               type="password"
-              value={form.password}
-              placeholder="Leave blank to keep current password"
-              onChange={(e) =>
-                setForm((f) => ({ ...f, password: e.target.value }))
-              }
+              required
+              placeholder="••••••••"
+              autoComplete="new-password"
+              error={errors.password?.message}
+              {...register("password", {
+                required: "Password is required",
+                minLength: {
+                  value: 4,
+                  message: "Password must be at least 4 characters",
+                },
+              })}
+            />
+          </div>
+          <div className="sm:col-span-2">
+            <Input
+              label="Confirm password"
+              type="password"
+              required
+              placeholder="••••••••"
+              autoComplete="new-password"
+              error={errors.confirmPassword?.message}
+              {...register("confirmPassword", {
+                required: "Confirm password is required",
+                validate: (value, formValues) =>
+                  value === formValues.password || "Passwords do not match",
+              })}
             />
           </div>
 
-          {error ? (
-            <div className="sm:col-span-2 rounded-lg bg-red-50 p-3 text-sm text-red-700 ring-1 ring-red-100">
-              {error}
-            </div>
-          ) : null}
-          {success ? (
-            <div className="sm:col-span-2 rounded-lg bg-emerald-50 p-3 text-sm text-emerald-800 ring-1 ring-emerald-100">
-              {success}
-            </div>
-          ) : null}
-
           <div className="sm:col-span-2 flex flex-wrap gap-3">
-            <Button type="submit" disabled={!canSave}>
+            <Button type="submit" disabled={!isFormValid}>
               {busy ? "Saving..." : "Save changes"}
-            </Button>
-            <Button
-              type="button"
-              variant="secondary"
-              onClick={() =>
-                setForm({
-                  name: user?.name || "",
-                  email: user?.email || "",
-                  password: "",
-                })
-              }
-            >
-              Reset
             </Button>
           </div>
         </form>
