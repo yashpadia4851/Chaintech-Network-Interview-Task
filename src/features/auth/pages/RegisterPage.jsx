@@ -1,31 +1,37 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import { Button } from "../../../shared/ui/Button";
 import { Input } from "../../../shared/ui/Input";
 import { useAuth } from "../useAuth";
 
 export default function RegisterPage() {
-  const { register } = useAuth();
+  const { register: registerUser } = useAuth();
   const navigate = useNavigate();
-  const [form, setForm] = useState({ name: "", email: "", password: "" });
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
 
-  const canSubmit = useMemo(
-    () =>
-      form.name.trim().length > 0 &&
-      form.email.trim().length > 0 &&
-      form.password.length >= 4 &&
-      !busy,
-    [form, busy],
-  );
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm({
+    mode: "onChange",
+    defaultValues: { name: "", email: "", password: "", confirmPassword: "" },
+  });
 
-  async function onSubmit(e) {
-    e.preventDefault();
+  const { name = "", email = "", password = "", confirmPassword = "" } = watch();
+  const passwordsMatch = password === confirmPassword;
+  const isFormValid =
+    Boolean(name?.trim() && email?.trim() && password?.trim() && confirmPassword?.trim() && passwordsMatch) && !busy;
+
+  async function onSubmit(data) {
     setError("");
     setBusy(true);
     try {
-      const res = register(form);
+      const { confirmPassword: _, ...userData } = data;
+      const res = registerUser(userData);
       if (!res.ok) {
         setError(res.error || "Registration failed.");
         return;
@@ -49,23 +55,23 @@ export default function RegisterPage() {
             </div>
           </div>
 
-          <form className="mt-6 space-y-4" onSubmit={onSubmit}>
+          <form className="mt-6 space-y-4" onSubmit={handleSubmit(onSubmit)}>
             <Input
               label="Name"
               autoComplete="name"
               placeholder="Your name"
-              value={form.name}
-              onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
+              required
+              error={errors.name?.message}
+              {...register("name", { required: "Name is required" })}
             />
             <Input
               label="Email"
               type="email"
               autoComplete="email"
               placeholder="you@example.com"
-              value={form.email}
-              onChange={(e) =>
-                setForm((f) => ({ ...f, email: e.target.value }))
-              }
+              required
+              error={errors.email?.message}
+              {...register("email", { required: "Email is required" })}
             />
             <Input
               label="Password"
@@ -73,10 +79,22 @@ export default function RegisterPage() {
               autoComplete="new-password"
               hint="Minimum 4 characters"
               placeholder="••••••••"
-              value={form.password}
-              onChange={(e) =>
-                setForm((form) => ({ ...form, password: e.target.value }))
-              }
+              required
+              error={errors.password?.message}
+              {...register("password", { required: "Password is required" })}
+            />
+            <Input
+              label="Confirm password"
+              type="password"
+              autoComplete="new-password"
+              placeholder="••••••••"
+              required
+              error={errors.confirmPassword?.message}
+              {...register("confirmPassword", {
+                required: "Confirm password is required",
+                validate: (value, formValues) =>
+                  value === formValues.password || "Passwords do not match",
+              })}
             />
 
             {error ? (
@@ -85,7 +103,11 @@ export default function RegisterPage() {
               </div>
             ) : null}
 
-            <Button type="submit" className="w-full" disabled={!canSubmit}>
+            <Button
+              type="submit"
+              className="w-full"
+              disabled={!isFormValid}
+            >
               {busy ? "Creating..." : "Create account"}
             </Button>
           </form>

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import { Button } from "../../../shared/ui/Button";
 import { Input } from "../../../shared/ui/Input";
 import { useAuth } from "../useAuth";
@@ -7,17 +8,21 @@ import { useAuth } from "../useAuth";
 export default function LoginPage() {
   const { login } = useAuth();
   const navigate = useNavigate();
-
-  const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
 
-  const canSubmit = form.email.trim() && form.password;
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm({ mode: "onChange", defaultValues: { email: "", password: "" } });
 
-  function onSubmit(e) {
-    e.preventDefault();
+  const { email = "", password = "" } = watch();
+  const isFormValid = Boolean(email?.trim() && password?.trim());
+
+  function onSubmit(data) {
     setError("");
-
-    const res = login(form);
+    const res = login(data);
 
     if (!res.ok) {
       setError(res.error || "Login failed.");
@@ -38,21 +43,23 @@ export default function LoginPage() {
             </p>
           </div>
 
-          <form className="mt-6 space-y-4" onSubmit={onSubmit}>
+          <form className="mt-6 space-y-4" onSubmit={handleSubmit(onSubmit)}>
             <Input
               label="Email"
               type="email"
               placeholder="you@example.com"
-              value={form.email}
-              onChange={(e) => setForm({ ...form, email: e.target.value })}
+              required
+              error={errors.email?.message}
+              {...register("email", { required: "Email is required" })}
             />
 
             <Input
               label="Password"
               type="password"
               placeholder="••••••••"
-              value={form.password}
-              onChange={(e) => setForm({ ...form, password: e.target.value })}
+              required
+              error={errors.password?.message}
+              {...register("password", { required: "Password is required" })}
             />
 
             {error && (
@@ -61,13 +68,17 @@ export default function LoginPage() {
               </div>
             )}
 
-            <Button type="submit" className="w-full" disabled={!canSubmit}>
+            <Button
+              type="submit"
+              className="w-full"
+              disabled={!isFormValid}
+            >
               Login
             </Button>
           </form>
 
           <div className="mt-6 text-center text-sm text-slate-600">
-            Don’t have an account?{" "}
+            Don&apos;t have an account?{" "}
             <Link
               to="/register"
               className="font-medium text-slate-900 underline underline-offset-4"

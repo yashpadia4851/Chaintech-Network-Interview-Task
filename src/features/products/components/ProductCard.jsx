@@ -9,12 +9,11 @@ export function ProductCard({ product }) {
 
   const inCart = useMemo(
     () => items.some((item) => item.id === id),
-    [items, id]
+    [items, id],
   );
 
   return (
     <div className="flex h-full flex-col overflow-hidden rounded-2xl bg-white ring-1 ring-slate-200">
-      
       <div className="aspect-square bg-white p-6">
         <img
           src={thumbnail}
@@ -29,11 +28,11 @@ export function ProductCard({ product }) {
           {title}
         </div>
 
-        <div className="flex items-center gap-2 text-xs text-slate-600">
+        {/* <div className="flex items-center gap-2 text-xs text-slate-600">
           <span>⭐ {rating}</span>
           <span>•</span>
           <span>{category}</span>
-        </div>
+        </div> */}
 
         <div className="mt-auto flex items-center justify-between gap-3">
           <div className="text-sm font-bold text-slate-900">
@@ -49,8 +48,6 @@ export function ProductCard({ product }) {
           </Button>
         </div>
       </div>
-
     </div>
   );
 }
-

@@ -23,7 +23,7 @@ export function Button({
   };
 
   const base =
-    "inline-flex items-center justify-center rounded-lg font-medium transition px-4";
+    "inline-flex cursor-pointer items-center justify-center rounded-lg font-medium transition px-4 disabled:cursor-not-allowed disabled:opacity-50";
 
   return (
     <Component

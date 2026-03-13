@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchProducts } from "../products.api";
+import { fetchProducts } from "./products.api";
 
 export function useProducts() {
   const [state, setState] = useState({
@@ -7,7 +7,7 @@ export function useProducts() {
     error: "",
     data: [],
   });
-
+ 
   useEffect(() => {
     const controller = new AbortController();
     // eslint-disable-next-line react-hooks/set-state-in-effect
