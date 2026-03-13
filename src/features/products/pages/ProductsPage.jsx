@@ -1,18 +1,30 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
+import { useInView } from "react-intersection-observer";
 import { Spinner } from "../../../shared/Spinner";
 import { EmptyState } from "../../../shared/EmptyState";
 import { useProducts } from "../hooks/useProducts";
 import { ProductCard } from "../components/ProductCard";
 
 export default function ProductsPage() {
-  const { loading, error, data } = useProducts();
+  const { loading, error, products, hasMore, loadingMore, loadMore } =
+    useProducts();
   const [query, setQuery] = useState("");
+  const { ref: sentinelRef, inView } = useInView({
+    rootMargin: "200px",
+    triggerOnce: false,
+  });
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    if (!q) return data;
-    return data.filter((p) => String(p.title).toLowerCase().includes(q));
-  }, [data, query]);
+    if (!q) return products;
+    return products.filter((p) => String(p.title).toLowerCase().includes(q));
+  }, [products, query]);
+
+  useEffect(() => {
+    if (inView && hasMore && !loading && !loadingMore) {
+      loadMore();
+    }
+  }, [inView, hasMore, loading, loadingMore, loadMore]);
 
   return (
     <div className="space-y-4">
@@ -55,11 +67,25 @@ export default function ProductsPage() {
           description="Try a different search term."
         />
       ) : (
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {filtered.map((p) => (
-            <ProductCard key={p.id} product={p} />
-          ))}
-        </div>
+        <>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {filtered.map((p) => (
+              <ProductCard key={p.id} product={p} />
+            ))}
+          </div>
+
+          {/* Sentinel for infinite scroll */}
+          {hasMore && (
+            <div ref={sentinelRef} className="flex justify-center py-6">
+              {loadingMore && (
+                <div className="mx-auto flex w-fit items-center gap-3 text-sm text-slate-700">
+                  <Spinner />
+                  <span>Loading more products...</span>
+                </div>
+              )}
+            </div>
+          )}
+        </>
       )}
     </div>
   );
