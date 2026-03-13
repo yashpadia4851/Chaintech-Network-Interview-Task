@@ -1,3 +1,33 @@
+# Authentication-Based E-Commerce Dashboard (No Backend)
+
+## Tech
+- React (Vite)
+- React Router
+- Tailwind CSS
+- Product API: Fake Store API
+- No backend (all auth/cart data stored in `localStorage`)
+
+## Features
+- Register + Login (stored in `localStorage`)
+- Protected dashboard routes (cannot access without login)
+- Time-bound session (expires after **5 minutes**)
+- Products grid with loading + error states + search
+- Cart: add, prevent duplicates (increments qty), qty +/- , remove, totals
+- Profile: view/edit name/email/password
+- Fully responsive UI (mobile/tablet/desktop)
+
+## Run locally
+
+```bash
+npm i
+npm run dev
+```
+
+## Deploy (Vercel / Netlify)
+- **Build command**: `npm run build`
+- **Output directory**: `dist`
+- **SPA routing**: ensure redirects route all paths to `index.html`
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
