@@ -21,6 +21,25 @@ function formatRemaining(ms) {
 const navLinkBase =
   "inline-flex items-center gap-2 rounded-full px-3 py-1 text-sm font-medium transition-colors sm:text-base";
 
+function CartIcon({ className = "" }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <circle cx="9" cy="21" r="1" />
+      <circle cx="20" cy="21" r="1" />
+      <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+    </svg>
+  );
+}
+
 export default function DashboardLayout() {
   const { logout, sessionRemainingMs } = useAuth();
   const { itemCount } = useCart();
@@ -77,10 +96,15 @@ export default function DashboardLayout() {
                   }`
                 }
               >
-                <span>Cart</span>
-                <span className="inline-flex min-w-6 items-center justify-center rounded-full bg-slate-900 px-2 py-0.5 text-[11px] font-semibold text-white dark:bg-gray-200 dark:text-gray-900">
-                  {itemCount}
+                <span className="relative inline-flex items-center">
+                  <CartIcon className="h-5 w-5" />
+                  {itemCount > 0 && (
+                    <span className="absolute -right-2 -top-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-bold text-white shadow-sm">
+                      {itemCount > 99 ? "99+" : itemCount}
+                    </span>
+                  )}
                 </span>
+                <span className="ml-2">Cart</span>
               </NavLink>
               <NavLink
                 to="/dashboard/profile"
@@ -173,18 +197,22 @@ export default function DashboardLayout() {
             <NavLink
               to="/dashboard/cart"
               className={({ isActive }) =>
-                `flex items-center justify-between rounded-xl px-4 py-3 transition ${
+                `flex items-center gap-3 rounded-xl px-4 py-3 transition ${
                   isActive
                     ? "bg-slate-900 text-white dark:bg-gray-200 dark:text-gray-900"
                     : "text-slate-700 hover:bg-slate-100 dark:text-gray-300 dark:hover:bg-gray-800"
                 }`
               }
             >
-              <span>Cart</span>
-
-              <span className="inline-flex min-w-8 items-center justify-center rounded-full bg-slate-900 px-2 py-1 text-sm font-semibold text-white dark:bg-gray-200 dark:text-gray-900">
-                {itemCount}
+              <span className="relative inline-flex">
+                <CartIcon className="h-6 w-6" />
+                {itemCount > 0 && (
+                  <span className="absolute -right-2 -top-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-bold text-white shadow-sm">
+                    {itemCount > 99 ? "99+" : itemCount}
+                  </span>
+                )}
               </span>
+              <span className="ml-2">Cart</span>
             </NavLink>
 
             <NavLink
