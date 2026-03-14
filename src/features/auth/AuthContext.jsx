@@ -54,7 +54,8 @@ export function AuthProvider({ children }) {
     const normalizedEmail = String(email || "").trim().toLowerCase();
     const user = users.find((u) => u.email.toLowerCase() === normalizedEmail);
     if (!user || user.password !== password) {
-      return { ok: false, error: "Credentials are not valid." };
+      toast.error("Invalid credentials");
+      return { ok: false };
     }
     const nextSession = {
       userId: user.id,

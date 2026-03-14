@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { Button } from "../../../shared/Button";
 import { Input } from "../../../shared/Input";
 import { ThemeToggle } from "../../../shared/ThemeToggle";
@@ -21,9 +22,9 @@ export default function LoginPage() {
   const { email = "", password = "" } = watch();
   const isFormValid = Boolean(
     email?.trim() &&
-      password?.trim() &&
-      password.length >= 4 &&
-      !/\s/.test(password)
+    password?.trim() &&
+    password.length >= 4 &&
+    !/\s/.test(password),
   );
 
   function onSubmit(data) {
@@ -31,7 +32,8 @@ export default function LoginPage() {
     const res = login(data);
 
     if (!res.ok) {
-      setError(res.error || "Login failed.");
+      const message = res.error || "Login failed.";
+      toast.error(message);
       return;
     }
 
@@ -46,7 +48,9 @@ export default function LoginPage() {
       <div className="mx-auto flex min-h-dvh max-w-6xl items-center justify-center px-4 py-10">
         <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-lg ring-1 ring-slate-200/60 transition-colors duration-300 dark:bg-neutral-900 dark:ring-neutral-700 dark:shadow-black/30">
           <div className="text-center">
-            <h1 className="text-2xl font-bold text-slate-900 dark:text-gray-100">Welcome back</h1>
+            <h1 className="text-2xl font-bold text-slate-900 dark:text-gray-100">
+              Welcome back
+            </h1>
             <p className="mt-1 text-sm text-slate-600 dark:text-gray-400">
               Login to access your dashboard.
             </p>
@@ -77,7 +81,8 @@ export default function LoginPage() {
                   message: "Password must be at least 4 characters",
                 },
                 validate: (value) =>
-                  !/\s/.test(value || "") || "Spaces are not allowed in password",
+                  !/\s/.test(value || "") ||
+                  "Spaces are not allowed in password",
               })}
             />
 
@@ -87,11 +92,7 @@ export default function LoginPage() {
               </div>
             )}
 
-            <Button
-              type="submit"
-              className="w-full"
-              disabled={!isFormValid}
-            >
+            <Button type="submit" className="w-full" disabled={!isFormValid}>
               Login
             </Button>
           </form>
