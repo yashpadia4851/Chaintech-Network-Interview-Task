@@ -64,7 +64,7 @@ export default function DashboardLayout() {
   return (
     <div className="min-h-dvh bg-slate-100/80 transition-colors duration-300 dark:bg-neutral-950">
       <header className="sticky top-0 z-30 border-b border-slate-200/80 bg-white/90 shadow-sm backdrop-blur transition-colors duration-300 dark:border-neutral-800 dark:bg-neutral-900 dark:shadow-black/25">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3">
+        <div className="flex items-center justify-between gap-3 px-4 py-3 sm:px-6 lg:px-8">
           <Link
             to="/dashboard"
             className="text-base font-bold tracking-tight text-slate-900 transition-colors dark:text-gray-100 sm:text-lg"
@@ -72,7 +72,7 @@ export default function DashboardLayout() {
             E-Commerce Dashboard
           </Link>
 
-          <div className="hidden items-center gap-4 md:flex">
+          <div className="hidden items-center justify-end gap-6 md:flex">
             <nav className="flex items-center gap-2 rounded-full px-2 py-1">
               <NavLink
                 to="/dashboard/products"
@@ -85,6 +85,18 @@ export default function DashboardLayout() {
                 }
               >
                 Products
+              </NavLink>
+              <NavLink
+                to="/dashboard/profile"
+                className={({ isActive }) =>
+                  `${navLinkBase} ${
+                    isActive
+                      ? "bg-slate-900 text-white dark:bg-gray-200 dark:text-gray-900"
+                      : "text-slate-700 hover:bg-white dark:text-gray-300 dark:hover:bg-gray-800"
+                  }`
+                }
+              >
+                Profile
               </NavLink>
               <NavLink
                 to="/dashboard/cart"
@@ -106,28 +118,16 @@ export default function DashboardLayout() {
                 </span>
                 <span className="ml-2">Cart</span>
               </NavLink>
-              <NavLink
-                to="/dashboard/profile"
-                className={({ isActive }) =>
-                  `${navLinkBase} ${
-                    isActive
-                      ? "bg-slate-900 text-white dark:bg-gray-200 dark:text-gray-900"
-                      : "text-slate-700 hover:bg-white dark:text-gray-300 dark:hover:bg-gray-800"
-                  }`
-                }
-              >
-                Profile
-              </NavLink>
             </nav>
 
-            <div className="flex items-center gap-3">
-              <ThemeToggle />
-              <div className="mr-3 text-sm text-slate-600 transition-colors dark:text-gray-400">
+            <div className="flex items-center gap-4 pl-4">
+              <div className="text-sm text-slate-600 transition-colors dark:text-gray-400">
                 Session{" "}
                 <span className="font-semibold text-slate-900 dark:text-gray-200">
                   {remainingText}
                 </span>
               </div>
+              <ThemeToggle />
               <Button variant="secondary" size="sm" onClick={onLogout}>
                 Logout
               </Button>
