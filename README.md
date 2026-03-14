@@ -44,11 +44,13 @@ A front-end e-commerce dashboard with authentication, product browsing, cart, an
 ## Run locally
 
 ```bash
+git clone <repo-url>
+cd chaintech-network-task
 npm install
 npm run dev
 ```
 
-Open the URL shown in the terminal (e.g. `https://e-commerce-task-by-ctn.netlify.app`).
+Open the URL shown in the terminal (e.g. `http://localhost:5173`).
 
 ---
 

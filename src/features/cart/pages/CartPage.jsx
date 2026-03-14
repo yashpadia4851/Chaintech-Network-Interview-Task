@@ -88,7 +88,7 @@ export default function CartPage() {
             <Button
               className="mt-4 w-full"
               onClick={() =>
-                toast.error("Buy Now feature not available — I didn't get permission to implement this.")
+                toast.success("success message")
               }
             >
               Buy Now
