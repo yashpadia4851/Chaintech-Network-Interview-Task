@@ -19,7 +19,12 @@ export default function LoginPage() {
   } = useForm({ mode: "onChange", defaultValues: { email: "", password: "" } });
 
   const { email = "", password = "" } = watch();
-  const isFormValid = Boolean(email?.trim() && password?.trim());
+  const isFormValid = Boolean(
+    email?.trim() &&
+      password?.trim() &&
+      password.length >= 4 &&
+      !/\s/.test(password)
+  );
 
   function onSubmit(data) {
     setError("");
@@ -65,7 +70,15 @@ export default function LoginPage() {
               autoComplete="current-password"
               required
               error={errors.password?.message}
-              {...register("password", { required: "Password is required" })}
+              {...register("password", {
+                required: "Password is required",
+                minLength: {
+                  value: 4,
+                  message: "Password must be at least 4 characters",
+                },
+                validate: (value) =>
+                  !/\s/.test(value || "") || "Spaces are not allowed in password",
+              })}
             />
 
             {error && (

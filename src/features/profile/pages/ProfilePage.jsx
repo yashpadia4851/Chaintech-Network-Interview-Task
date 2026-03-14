@@ -32,7 +32,9 @@ export default function ProfilePage() {
         email.trim() &&
         password.trim() &&
         confirmPassword.trim() &&
-        passwordsMatch
+        passwordsMatch &&
+        password.length >= 4 &&
+        !/\s/.test(password)
     ) && !busy;
 
   async function onSubmit(values) {
@@ -102,6 +104,7 @@ export default function ProfilePage() {
               required
               placeholder="••••••••"
               autoComplete="new-password"
+              hint="Minimum 4 characters, no spaces"
               error={errors.password?.message}
               {...register("password", {
                 required: "Password is required",
@@ -109,6 +112,8 @@ export default function ProfilePage() {
                   value: 4,
                   message: "Password must be at least 4 characters",
                 },
+                validate: (value) =>
+                  !value || !/\s/.test(value) || "Spaces are not allowed in password",
               })}
             />
           </div>
