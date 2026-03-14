@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -21,33 +21,31 @@ export default function ProfilePage() {
     defaultValues: {
       name: user?.name || "",
       email: user?.email || "",
-      password: "",
-      confirmPassword: "",
+      password: user?.password || "",
+      newPassword: "",
     },
   });
 
-  const { name = "", email = "", password = "", confirmPassword = "" } = watch();
-  const passwordsMatch = password === confirmPassword;
+  const initialPasswordRef = useRef(user?.password || "");
+
+  const { name = "", email = "", password = "", newPassword = "" } = watch();
   const hasErrors = Object.keys(errors || {}).length > 0;
   const isFormValid =
-    Boolean(
-      name.trim() &&
-        email.trim() &&
-        password.trim() &&
-        confirmPassword.trim() &&
-        passwordsMatch &&
-        password.length >= 4 &&
-        !/\s/.test(password)
-    ) && !busy && !hasErrors;
+    Boolean(name.trim() && email.trim()) && !busy && !hasErrors;
 
   async function onSubmit(values) {
     setBusy(true);
     try {
-      const res = updateProfile({
+      const payload = {
         name: values.name,
         email: values.email,
-        password: values.password,
-      });
+      };
+
+      if (values.newPassword && values.newPassword.trim()) {
+        payload.password = values.newPassword;
+      }
+
+      const res = updateProfile(payload);
       if (!res.ok) {
         toast.error(res.error || "Failed to update profile.");
         return;
@@ -101,40 +99,36 @@ export default function ProfilePage() {
               },
             })}
           />
-          <div className="sm:col-span-2">
+          <div className="sm:col-span-2 space-y-1.5">
             <Input
               label="Password"
               type="password"
-              required
               placeholder="••••••••"
               autoComplete="new-password"
-              hint="Minimum 4 characters, no spaces"
               error={errors.password?.message}
               {...register("password", {
                 required: "Password is required",
-                minLength: {
-                  value: 4,
-                  message: "Password must be at least 4 characters",
-                },
                 validate: (value) =>
-                  !value || !/\s/.test(value) || "Spaces are not allowed in password",
+                  value === initialPasswordRef.current ||
+                  "Password is not matching with the old one",
               })}
             />
+            <p className="text-xs text-slate-500 dark:text-gray-400">
+              This is your current password. Do not change it here.
+            </p>
           </div>
           <div className="sm:col-span-2">
             <Input
-              label="Confirm password"
+              label="New password"
               type="password"
-              required
               placeholder="••••••••"
               autoComplete="new-password"
-              error={errors.confirmPassword?.message}
-              {...register("confirmPassword", {
-                required: "Confirm password is required",
-                validate: (value, formValues) =>
-                  value === formValues.password || "Passwords do not match",
-              })}
+              error={errors.newPassword?.message}
+              {...register("newPassword")}
             />
+            <p className="text-xs text-slate-500 dark:text-gray-400">
+              Leave this field empty if you do not want to change your password.
+            </p>
           </div>
 
           <div className="sm:col-span-2 flex flex-wrap gap-3">

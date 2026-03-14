@@ -15,8 +15,7 @@ function isSessionValid(session) {
 
 function sanitizeUser(user) {
   if (!user) return null;
-  const { password, ...rest } = user;
-  return rest;
+  return user;
 }
 
 export function AuthProvider({ children }) {
