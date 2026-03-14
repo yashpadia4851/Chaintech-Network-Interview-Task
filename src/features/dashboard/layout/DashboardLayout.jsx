@@ -116,7 +116,6 @@ export default function DashboardLayout() {
                     </span>
                   )}
                 </span>
-                <span className="ml-2">Cart</span>
               </NavLink>
             </nav>
 
@@ -136,13 +135,27 @@ export default function DashboardLayout() {
 
           <div className="flex items-center gap-2 md:hidden">
             <ThemeToggle />
+            <Link
+              to="/dashboard/cart"
+              className="relative mr-2 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-slate-700 transition-colors hover:bg-slate-50 dark:text-gray-200 dark:hover:bg-gray-800"
+              aria-label={`Cart, ${itemCount} items`}
+            >
+              <CartIcon className="h-5 w-5" />
+              {itemCount > 0 && (
+                <span className="absolute -right-1 -top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-bold text-white shadow-sm">
+                  {itemCount > 99 ? "99+" : itemCount}
+                </span>
+              )}
+            </Link>
             <button
               type="button"
               className="inline-flex h-9 w-9 items-center justify-center rounded-lg ring-1 ring-slate-200 hover:bg-slate-50 transition-colors dark:ring-gray-600 dark:hover:bg-gray-800 md:hidden"
               onClick={() => setIsMobileMenuOpen(true)}
               aria-label="Open menu"
             >
-              <span className="text-lg text-slate-700 dark:text-gray-200">☰</span>
+              <span className="text-lg text-slate-700 dark:text-gray-200">
+                ☰
+              </span>
             </button>
           </div>
         </div>
@@ -195,27 +208,6 @@ export default function DashboardLayout() {
             </NavLink>
 
             <NavLink
-              to="/dashboard/cart"
-              className={({ isActive }) =>
-                `flex items-center gap-3 rounded-xl px-4 py-3 transition ${
-                  isActive
-                    ? "bg-slate-900 text-white dark:bg-gray-200 dark:text-gray-900"
-                    : "text-slate-700 hover:bg-slate-100 dark:text-gray-300 dark:hover:bg-gray-800"
-                }`
-              }
-            >
-              <span className="relative inline-flex">
-                <CartIcon className="h-6 w-6" />
-                {itemCount > 0 && (
-                  <span className="absolute -right-2 -top-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-bold text-white shadow-sm">
-                    {itemCount > 99 ? "99+" : itemCount}
-                  </span>
-                )}
-              </span>
-              <span className="ml-2">Cart</span>
-            </NavLink>
-
-            <NavLink
               to="/dashboard/profile"
               className={({ isActive }) =>
                 `flex items-center justify-between rounded-xl px-4 py-3 transition ${
@@ -234,7 +226,9 @@ export default function DashboardLayout() {
           <div className="space-y-4 px-5 py-5">
             <div className="flex items-center justify-center gap-2 text-lg text-slate-700 dark:text-gray-300">
               <span className="font-medium">Session:</span>
-              <span className="font-bold text-slate-900 dark:text-gray-100">{remainingText}</span>
+              <span className="font-bold text-slate-900 dark:text-gray-100">
+                {remainingText}
+              </span>
             </div>
 
             <Button

@@ -28,6 +28,7 @@ export default function ProfilePage() {
 
   const { name = "", email = "", password = "", confirmPassword = "" } = watch();
   const passwordsMatch = password === confirmPassword;
+  const hasErrors = Object.keys(errors || {}).length > 0;
   const isFormValid =
     Boolean(
       name.trim() &&
@@ -37,7 +38,7 @@ export default function ProfilePage() {
         passwordsMatch &&
         password.length >= 4 &&
         !/\s/.test(password)
-    ) && !busy;
+    ) && !busy && !hasErrors;
 
   async function onSubmit(values) {
     setBusy(true);
@@ -95,7 +96,7 @@ export default function ProfilePage() {
             {...register("email", {
               required: "Email is required",
               pattern: {
-                value: /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,6}$/,
+                value: /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,3}$/,
                 message: "Invalid email",
               },
             })}

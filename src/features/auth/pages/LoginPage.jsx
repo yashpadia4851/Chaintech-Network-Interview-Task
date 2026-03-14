@@ -20,20 +20,21 @@ export default function LoginPage() {
   } = useForm({ mode: "onChange", defaultValues: { email: "", password: "" } });
 
   const { email = "", password = "" } = watch();
-  const isFormValid = Boolean(
-    email?.trim() &&
-    password?.trim() &&
-    password.length >= 4 &&
-    !/\s/.test(password),
-  );
+  const hasErrors = Object.keys(errors || {}).length > 0;
+  const isFormValid =
+    Boolean(
+      email?.trim() &&
+        password?.trim() &&
+        password.length >= 4 &&
+        !/\s/.test(password),
+    ) && !hasErrors;
 
   function onSubmit(data) {
     setError("");
     const res = login(data);
 
     if (!res.ok) {
-      const message = res.error || "Login failed.";
-      toast.error(message);
+      toast.error(res.error || "Login failed.");
       return;
     }
 
@@ -64,7 +65,13 @@ export default function LoginPage() {
               autoComplete="email"
               required
               error={errors.email?.message}
-              {...register("email", { required: "Email is required" })}
+              {...register("email", {
+                required: "Email is required",
+                pattern: {
+                  value: /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,3}$/,
+                  message: "Invalid email format",
+                },
+              })}
             />
 
             <Input

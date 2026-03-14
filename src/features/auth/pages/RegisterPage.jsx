@@ -24,17 +24,17 @@ export default function RegisterPage() {
 
   const { name = "", email = "", password = "", confirmPassword = "" } = watch();
   const passwordsMatch = password === confirmPassword;
+  const hasErrors = Object.keys(errors || {}).length > 0;
   const isFormValid =
     Boolean(
       name?.trim() &&
-        name.trim().length > 4 &&
         email?.trim() &&
         password?.trim() &&
         confirmPassword?.trim() &&
         passwordsMatch &&
         password.length >= 4 &&
         !/\s/.test(password)
-    ) && !busy;
+    ) && !busy && !hasErrors;
 
   async function onSubmit(data) {
     setError("");
@@ -74,14 +74,9 @@ export default function RegisterPage() {
               autoComplete="name"
               placeholder="Your name"
               required
-              hint="More than 4 characters"
               error={errors.name?.message}
               {...register("name", {
                 required: "Name is required",
-                minLength: {
-                  value: 5,
-                  message: "Name must be more than 4 characters",
-                },
                 pattern: {
                   value: /^[A-Za-z\s]+$/,
                   message: "Name must contain only letters",
@@ -95,7 +90,13 @@ export default function RegisterPage() {
               placeholder="you@example.com"
               required
               error={errors.email?.message}
-              {...register("email", { required: "Email is required" })}
+              {...register("email", {
+                required: "Email is required",
+                pattern: {
+                  value: /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,3}$/,
+                  message: "Invalid email format",
+                },
+              })}
             />
             <Input
               label="Password"
