@@ -1,15 +1,27 @@
 @import "tailwindcss";
 
-html,
-body {
+@custom-variant dark (&:where(.dark, .dark *));
+
+html {
   height: 100%;
+  transition: background-color 0.35s ease, color 0.35s ease;
+}
+
+html.light {
+  background-color: #f1f5f9;
+  color: #0f172a;
+}
+
+html.dark {
+  background-color: #0a0a0a;
+  color: #fafafa;
 }
 
 body {
-  background: #f1f5f9;
-  color: #0f172a;
+  height: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.35s ease, color 0.35s ease;
 }
 
 a {

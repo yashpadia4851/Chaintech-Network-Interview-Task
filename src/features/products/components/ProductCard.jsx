@@ -16,8 +16,8 @@ export function ProductCard({ product }) {
   const productForCart = { ...product, image: imageUrl };
 
   return (
-    <div className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-md ring-1 ring-slate-200/80 transition-shadow duration-300 hover:shadow-xl">
-      <div className="aspect-square overflow-hidden bg-slate-50/50 p-6">
+    <div className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-md ring-1 ring-slate-200/80 transition-all duration-300 hover:shadow-xl dark:bg-neutral-900 dark:ring-neutral-700/80 dark:shadow-black/25 dark:hover:shadow-black/35">
+      <div className="aspect-square overflow-hidden bg-slate-50/50 p-6 dark:bg-neutral-800/70">
         <img
           src={imageUrl}
           alt={title}
@@ -27,23 +27,23 @@ export function ProductCard({ product }) {
       </div>
 
       <div className="flex flex-1 flex-col gap-3 p-4">
-        <div className="line-clamp-2 text-sm font-semibold text-slate-900">
+        <div className="line-clamp-2 text-sm font-semibold text-slate-900 dark:text-gray-100">
           {title}
         </div>
 
-        <div className="flex items-center gap-2 text-xs text-slate-600">
+        <div className="flex items-center gap-2 text-xs text-slate-600 dark:text-gray-400">
           <span>⭐ {rating}</span>
           <span>•</span>
           <span>{category}</span>
         </div>
 
         <div className="mt-auto flex items-center justify-between gap-3">
-          <div className="text-sm font-bold text-slate-900">
+          <div className="text-sm font-bold text-slate-900 dark:text-gray-100">
             {formatCurrency(price)}
           </div>
 
           {cartQty > 0 ? (
-            <div className="inline-flex items-center justify-between rounded-full bg-emerald-800 px-3 py-1.5 text-white">
+            <div className="inline-flex items-center justify-between rounded-full bg-slate-800 px-3 py-1.5 text-white shadow-sm dark:bg-gray-200 dark:text-gray-900 dark:shadow-black/25">
               <button
                 type="button"
                 onClick={() => dec(id)}

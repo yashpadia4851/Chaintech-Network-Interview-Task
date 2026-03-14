@@ -7,6 +7,7 @@ import {
   useNavigate,
 } from "react-router-dom";
 import { Button } from "../../../shared/Button";
+import { ThemeToggle } from "../../../shared/ThemeToggle";
 import { useAuth } from "../../auth/useAuth";
 import { useCart } from "../../cart/useCart";
 
@@ -42,12 +43,12 @@ export default function DashboardLayout() {
   }, [location.pathname]);
 
   return (
-    <div className="min-h-dvh bg-slate-100/80">
-      <header className="sticky top-0 z-30 border-b border-slate-200/80 bg-white/90 shadow-sm backdrop-blur">
+    <div className="min-h-dvh bg-slate-100/80 transition-colors duration-300 dark:bg-neutral-950">
+      <header className="sticky top-0 z-30 border-b border-slate-200/80 bg-white/90 shadow-sm backdrop-blur transition-colors duration-300 dark:border-neutral-800 dark:bg-neutral-900 dark:shadow-black/25">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3">
           <Link
             to="/dashboard"
-            className="text-base font-bold tracking-tight text-slate-900 sm:text-lg"
+            className="text-base font-bold tracking-tight text-slate-900 transition-colors dark:text-gray-100 sm:text-lg"
           >
             E-Commerce Dashboard
           </Link>
@@ -59,8 +60,8 @@ export default function DashboardLayout() {
                 className={({ isActive }) =>
                   `${navLinkBase} ${
                     isActive
-                      ? "bg-slate-900 text-white"
-                      : "text-slate-700 hover:bg-white"
+                      ? "bg-slate-900 text-white dark:bg-gray-200 dark:text-gray-900"
+                      : "text-slate-700 hover:bg-white dark:text-gray-300 dark:hover:bg-gray-800"
                   }`
                 }
               >
@@ -71,13 +72,13 @@ export default function DashboardLayout() {
                 className={({ isActive }) =>
                   `${navLinkBase} ${
                     isActive
-                      ? "bg-slate-900 text-white"
-                      : "text-slate-700 hover:bg-white"
+                      ? "bg-slate-900 text-white dark:bg-gray-200 dark:text-gray-900"
+                      : "text-slate-700 hover:bg-white dark:text-gray-300 dark:hover:bg-gray-800"
                   }`
                 }
               >
                 <span>Cart</span>
-                <span className="inline-flex min-w-6 items-center justify-center rounded-full bg-slate-900 px-2 py-0.5 text-[11px] font-semibold text-white">
+                <span className="inline-flex min-w-6 items-center justify-center rounded-full bg-slate-900 px-2 py-0.5 text-[11px] font-semibold text-white dark:bg-gray-200 dark:text-gray-900">
                   {itemCount}
                 </span>
               </NavLink>
@@ -86,8 +87,8 @@ export default function DashboardLayout() {
                 className={({ isActive }) =>
                   `${navLinkBase} ${
                     isActive
-                      ? "bg-slate-900 text-white"
-                      : "text-slate-700 hover:bg-white"
+                      ? "bg-slate-900 text-white dark:bg-gray-200 dark:text-gray-900"
+                      : "text-slate-700 hover:bg-white dark:text-gray-300 dark:hover:bg-gray-800"
                   }`
                 }
               >
@@ -96,9 +97,10 @@ export default function DashboardLayout() {
             </nav>
 
             <div className="flex items-center gap-3">
-              <div className="text-sm text-slate-600 mr-3">
+              <ThemeToggle />
+              <div className="mr-3 text-sm text-slate-600 transition-colors dark:text-gray-400">
                 Session{" "}
-                <span className="font-semibold text-slate-900">
+                <span className="font-semibold text-slate-900 dark:text-gray-200">
                   {remainingText}
                 </span>
               </div>
@@ -108,14 +110,17 @@ export default function DashboardLayout() {
             </div>
           </div>
 
-          <button
-            type="button"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-lg ring-1 ring-slate-200 hover:bg-slate-50 md:hidden"
-            onClick={() => setIsMobileMenuOpen(true)}
-            aria-label="Open menu"
-          >
-            <span className="text-lg">☰</span>
-          </button>
+          <div className="flex items-center gap-2 md:hidden">
+            <ThemeToggle />
+            <button
+              type="button"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-lg ring-1 ring-slate-200 hover:bg-slate-50 transition-colors dark:ring-gray-600 dark:hover:bg-gray-800 md:hidden"
+              onClick={() => setIsMobileMenuOpen(true)}
+              aria-label="Open menu"
+            >
+              <span className="text-lg text-slate-700 dark:text-gray-200">☰</span>
+            </button>
+          </div>
         </div>
       </header>
 
@@ -134,16 +139,16 @@ export default function DashboardLayout() {
         />
 
         <div
-          className={`relative flex min-h-dvh w-80 max-w-full flex-col bg-white text-slate-900 shadow-xl transition-transform duration-300 ease-out ${
+          className={`relative flex min-h-dvh w-80 max-w-full flex-col bg-white text-slate-900 shadow-xl transition-transform duration-300 ease-out dark:bg-neutral-900 dark:text-gray-100 dark:shadow-black/40 ${
             isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >
-          <div className="flex items-center justify-between border-b border-slate-200 px-5 py-4">
+          <div className="flex items-center justify-between border-b border-slate-200 px-5 py-4 dark:border-gray-700">
             <span className="text-xl font-semibold tracking-tight">Menu</span>
 
             <button
               type="button"
-              className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-slate-100 text-xl hover:bg-slate-200"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-slate-100 text-xl hover:bg-slate-200 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-gray-200"
               aria-label="Close menu"
               onClick={() => setIsMobileMenuOpen(false)}
             >
@@ -157,8 +162,8 @@ export default function DashboardLayout() {
               className={({ isActive }) =>
                 `flex items-center justify-between rounded-xl px-4 py-3 transition ${
                   isActive
-                    ? "bg-slate-900 text-white"
-                    : "text-slate-700 hover:bg-slate-100"
+                    ? "bg-slate-900 text-white dark:bg-gray-200 dark:text-gray-900"
+                    : "text-slate-700 hover:bg-slate-100 dark:text-gray-300 dark:hover:bg-gray-800"
                 }`
               }
             >
@@ -170,14 +175,14 @@ export default function DashboardLayout() {
               className={({ isActive }) =>
                 `flex items-center justify-between rounded-xl px-4 py-3 transition ${
                   isActive
-                    ? "bg-slate-900 text-white"
-                    : "text-slate-700 hover:bg-slate-100"
+                    ? "bg-slate-900 text-white dark:bg-gray-200 dark:text-gray-900"
+                    : "text-slate-700 hover:bg-slate-100 dark:text-gray-300 dark:hover:bg-gray-800"
                 }`
               }
             >
               <span>Cart</span>
 
-              <span className="inline-flex min-w-8 items-center justify-center rounded-full bg-slate-900 px-2 py-1 text-sm font-semibold text-white">
+              <span className="inline-flex min-w-8 items-center justify-center rounded-full bg-slate-900 px-2 py-1 text-sm font-semibold text-white dark:bg-gray-200 dark:text-gray-900">
                 {itemCount}
               </span>
             </NavLink>
@@ -187,8 +192,8 @@ export default function DashboardLayout() {
               className={({ isActive }) =>
                 `flex items-center justify-between rounded-xl px-4 py-3 transition ${
                   isActive
-                    ? "bg-slate-900 text-white"
-                    : "text-slate-700 hover:bg-slate-100"
+                    ? "bg-slate-900 text-white dark:bg-gray-200 dark:text-gray-900"
+                    : "text-slate-700 hover:bg-slate-100 dark:text-gray-300 dark:hover:bg-gray-800"
                 }`
               }
             >
@@ -196,12 +201,12 @@ export default function DashboardLayout() {
             </NavLink>
           </nav>
 
-          <div className="mx-5 my-4 h-[2px] bg-slate-200" />
+          <div className="mx-5 my-4 h-[2px] bg-slate-200 dark:bg-gray-700" />
 
           <div className="space-y-4 px-5 py-5">
-            <div className="flex items-center justify-center gap-2 text-lg text-slate-700">
+            <div className="flex items-center justify-center gap-2 text-lg text-slate-700 dark:text-gray-300">
               <span className="font-medium">Session:</span>
-              <span className="font-bold text-slate-900">{remainingText}</span>
+              <span className="font-bold text-slate-900 dark:text-gray-100">{remainingText}</span>
             </div>
 
             <Button

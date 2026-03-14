@@ -4,18 +4,21 @@ import { BrowserRouter } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import "./index.css";
 import App from "./App.jsx";
-import { AuthProvider } from "./features/auth/AuthContext.jsx"; 
+import { AuthProvider } from "./features/auth/AuthContext.jsx";
 import { CartProvider } from "./features/cart/CartContext.jsx";
+import { ThemeProvider } from "./app/ThemeContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
-      <AuthProvider>
-        <CartProvider>
+      <ThemeProvider>
+        <AuthProvider>
+          <CartProvider>
           <App />
           <Toaster position="top-center" />
-        </CartProvider>
-      </AuthProvider>
+          </CartProvider>
+        </AuthProvider>
+      </ThemeProvider>
     </BrowserRouter>
   </StrictMode>,
 );

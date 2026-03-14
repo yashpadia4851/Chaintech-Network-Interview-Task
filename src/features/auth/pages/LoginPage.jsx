@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Button } from "../../../shared/Button";
 import { Input } from "../../../shared/Input";
+import { ThemeToggle } from "../../../shared/ThemeToggle";
 import { useAuth } from "../useAuth";
 
 export default function LoginPage() {
@@ -33,12 +34,15 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-dvh bg-slate-100">
+    <div className="min-h-dvh bg-slate-100 transition-colors duration-300 dark:bg-neutral-950">
+      <div className="absolute right-4 top-4">
+        <ThemeToggle />
+      </div>
       <div className="mx-auto flex min-h-dvh max-w-6xl items-center justify-center px-4 py-10">
-        <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-lg ring-1 ring-slate-200/60">
+        <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-lg ring-1 ring-slate-200/60 transition-colors duration-300 dark:bg-neutral-900 dark:ring-neutral-700 dark:shadow-black/30">
           <div className="text-center">
-            <h1 className="text-2xl font-bold text-slate-900">Welcome back</h1>
-            <p className="mt-1 text-sm text-slate-600">
+            <h1 className="text-2xl font-bold text-slate-900 dark:text-gray-100">Welcome back</h1>
+            <p className="mt-1 text-sm text-slate-600 dark:text-gray-400">
               Login to access your dashboard.
             </p>
           </div>
@@ -65,7 +69,7 @@ export default function LoginPage() {
             />
 
             {error && (
-              <div className="rounded-lg bg-red-50 p-3 text-sm text-red-700">
+              <div className="rounded-lg bg-red-50 p-3 text-sm text-red-700 dark:bg-red-900/30 dark:text-red-300">
                 {error}
               </div>
             )}
@@ -79,11 +83,11 @@ export default function LoginPage() {
             </Button>
           </form>
 
-          <div className="mt-6 text-center text-sm text-slate-600">
+          <div className="mt-6 text-center text-sm text-slate-600 dark:text-gray-400">
             Don&apos;t have an account?{" "}
             <Link
               to="/register"
-              className="font-medium text-slate-900"
+              className="font-medium text-slate-900 dark:text-gray-200"
             >
               Create one
             </Link>

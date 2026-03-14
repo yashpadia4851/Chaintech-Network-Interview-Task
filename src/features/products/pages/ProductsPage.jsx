@@ -30,19 +30,19 @@ export default function ProductsPage() {
     <div className="space-y-4">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <div className="text-2xl font-bold tracking-tight text-slate-900">
+          <div className="text-2xl font-bold tracking-tight text-slate-900 dark:text-gray-100">
             Products
           </div>
-          <div className="mt-1 text-sm text-slate-600">
+          <div className="mt-1 text-sm text-slate-600 dark:text-gray-400">
             Browse and add items to your cart.
           </div>
         </div>
         <label className="block w-full sm:w-80">
-          <span className="mb-1 block text-sm font-medium text-slate-800">
+          <span className="mb-1 block text-sm font-medium text-slate-800 dark:text-gray-200">
             Search
           </span>
           <input
-            className="h-10 w-full rounded-xl bg-white px-3 text-sm text-slate-900 shadow-sm ring-1 ring-inset ring-slate-200 outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-0"
+            className="h-10 w-full rounded-xl bg-white px-3 text-sm text-slate-900 shadow-sm ring-1 ring-inset ring-slate-200 outline-none transition-colors focus:ring-2 focus:ring-slate-400 focus:ring-offset-0 dark:bg-neutral-800 dark:text-gray-100 dark:ring-neutral-600 dark:focus:ring-neutral-500 dark:focus:ring-offset-neutral-950"
             placeholder="Search by title..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -51,14 +51,14 @@ export default function ProductsPage() {
       </div>
 
       {loading ? (
-        <div className="rounded-2xl bg-white p-8 text-center shadow-md ring-1 ring-slate-200/60">
-          <div className="mx-auto flex w-fit items-center gap-3 text-sm text-slate-700">
+        <div className="rounded-2xl bg-white p-8 text-center shadow-md ring-1 ring-slate-200/60 transition-colors dark:bg-neutral-900 dark:ring-neutral-700/60 dark:shadow-black/25">
+          <div className="mx-auto flex w-fit items-center gap-3 text-sm text-slate-700 dark:text-gray-300">
             <Spinner />
             <span>Loading products...</span>
           </div>
         </div>
       ) : error ? (
-        <div className="rounded-2xl bg-red-50 p-6 text-sm text-red-700 ring-1 ring-red-100">
+        <div className="rounded-2xl bg-red-50 p-6 text-sm text-red-700 ring-1 ring-red-100 dark:bg-red-900/30 dark:text-red-300 dark:ring-red-800">
           {error}
         </div>
       ) : filtered.length === 0 ? (
@@ -78,7 +78,7 @@ export default function ProductsPage() {
           {hasMore && (
             <div ref={sentinelRef} className="flex justify-center py-6">
               {loadingMore && (
-                <div className="mx-auto flex w-fit items-center gap-3 text-sm text-slate-700">
+                <div className="mx-auto flex w-fit items-center gap-3 text-sm text-slate-700 dark:text-gray-300">
                   <Spinner />
                   <span>Loading more products...</span>
                 </div>

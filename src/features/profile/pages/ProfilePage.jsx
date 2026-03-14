@@ -56,15 +56,15 @@ export default function ProfilePage() {
   return (
     <div className="space-y-4">
       <div>
-        <div className="text-2xl font-bold tracking-tight text-slate-900">
+        <div className="text-2xl font-bold tracking-tight text-slate-900 dark:text-gray-100">
           Profile
         </div>
-        <div className="mt-1 text-sm text-slate-600">
+        <div className="mt-1 text-sm text-slate-600 dark:text-gray-400">
           Update your account information.
         </div>
       </div>
 
-      <div className="rounded-2xl bg-white p-6 shadow-md ring-1 ring-slate-200/60">
+      <div className="rounded-2xl bg-white p-6 shadow-md ring-1 ring-slate-200/60 transition-colors dark:bg-neutral-900 dark:ring-neutral-700/60 dark:shadow-black/25">
         <form
           className="grid grid-cols-1 gap-4 sm:grid-cols-2"
           onSubmit={handleSubmit(onSubmit)}

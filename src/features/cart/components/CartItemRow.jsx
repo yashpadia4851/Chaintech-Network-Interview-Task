@@ -5,9 +5,9 @@ import { formatCurrency } from "../../../utils/format";
 export function CartItemRow({ item, onInc, onDec, onRemove }) {
   const subtotal = item.qty * item.price;
   return (
-    <div className="flex flex-col gap-3 rounded-2xl bg-white p-4 shadow-md ring-1 ring-slate-200/60 sm:flex-row sm:items-center">
+    <div className="flex flex-col gap-3 rounded-2xl bg-white p-4 shadow-md ring-1 ring-slate-200/60 transition-colors dark:bg-neutral-900 dark:ring-neutral-700/60 dark:shadow-black/25 sm:flex-row sm:items-center">
       <div className="flex items-center gap-4">
-        <div className="h-16 w-16 flex-none overflow-hidden rounded-xl bg-slate-50 ring-1 ring-slate-100">
+        <div className="h-16 w-16 flex-none overflow-hidden rounded-xl bg-slate-50 ring-1 ring-slate-100 dark:bg-neutral-800 dark:ring-neutral-600">
           <img
             src={item.image}
             alt={item.title}
@@ -16,10 +16,10 @@ export function CartItemRow({ item, onInc, onDec, onRemove }) {
           />
         </div>
         <div className="min-w-0">
-          <div className="line-clamp-2 text-sm font-semibold text-slate-900">
+          <div className="line-clamp-2 text-sm font-semibold text-slate-900 dark:text-gray-100">
             {item.title}
           </div>
-          <div className="mt-1 text-xs text-slate-600">
+          <div className="mt-1 text-xs text-slate-600 dark:text-gray-400">
             {formatCurrency(item.price)} each
           </div>
         </div>
@@ -35,7 +35,7 @@ export function CartItemRow({ item, onInc, onDec, onRemove }) {
           >
             −
           </Button>
-          <span className="w-10 text-center text-sm font-semibold text-slate-900">
+          <span className="w-10 text-center text-sm font-semibold text-slate-900 dark:text-gray-100">
             {item.qty}
           </span>
           <Button
@@ -49,13 +49,13 @@ export function CartItemRow({ item, onInc, onDec, onRemove }) {
         </div>
 
         <div className="text-right">
-          <div className="text-sm font-bold text-slate-900">
+          <div className="text-sm font-bold text-slate-900 dark:text-gray-100">
             {formatCurrency(subtotal)}
           </div>
           <Button
             variant="ghost"
             size="sm"
-            className="mt-1 text-red-700 hover:bg-red-50"
+            className="mt-1 text-red-700 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-900/30"
             onClick={() => onRemove(item.id)}
           >
             Remove

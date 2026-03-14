@@ -10,11 +10,6 @@ import ProductsPage from "../features/products/pages/ProductsPage";
 import CartPage from "../features/cart/pages/CartPage";
 import ProfilePage from "../features/profile/pages/ProfilePage";
 
-// Feature pages added next:
-// - ProductsPage
-// - CartPage
-// - ProfilePage
-
 export function AppRouter() {
   return (
     <Routes>
