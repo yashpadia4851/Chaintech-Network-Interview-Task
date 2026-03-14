@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { Button } from "../../../shared/Button";
 import { Input } from "../../../shared/Input";
 import { ThemeToggle } from "../../../shared/ThemeToggle";
-import { useAuth } from "../useAuth";
+import { useAuth } from "../hooks/useAuth";
 
 export default function RegisterPage() {
   const { register: registerUser } = useAuth();

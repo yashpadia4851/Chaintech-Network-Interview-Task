@@ -9,6 +9,7 @@ import DashboardHome from "../features/dashboard/pages/DashboardHome";
 import ProductsPage from "../features/products/pages/ProductsPage";
 import CartPage from "../features/cart/pages/CartPage";
 import ProfilePage from "../features/profile/pages/ProfilePage";
+import NotFoundPage from "../features/misc/pages/NotFoundPage";
 
 export function AppRouter() {
   return (
@@ -28,8 +29,7 @@ export function AppRouter() {
       </Route>
 
       <Route path="/" element={<Navigate to="/dashboard" replace />} />
-      <Route path="*" element={<Navigate to="/dashboard" replace />} />
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 }
-

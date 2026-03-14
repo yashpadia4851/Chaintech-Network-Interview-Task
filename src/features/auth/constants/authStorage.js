@@ -1,4 +1,4 @@
-import { readJson, writeJson, removeKey } from "../../utils/storage";
+import { readJson, writeJson, removeKey } from "../../../utils/storage";
 import { AUTH_STORAGE_KEYS } from "./auth.constants";
 
 export function getUsers() {
@@ -20,4 +20,3 @@ export function setSession(session) {
 export function clearSession() {
   removeKey(AUTH_STORAGE_KEYS.session);
 }
-

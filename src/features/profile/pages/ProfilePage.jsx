@@ -1,12 +1,14 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Button } from "../../../shared/Button";
 import { Input } from "../../../shared/Input";
-import { useAuth } from "../../auth/useAuth";
+import { useAuth } from "../../auth/hooks/useAuth";
 
 export default function ProfilePage() {
   const { user, updateProfile } = useAuth();
+  const navigate = useNavigate();
   const [busy, setBusy] = useState(false);
 
   const {
@@ -50,6 +52,7 @@ export default function ProfilePage() {
         return;
       }
       toast.success("Profile updated successfully.");
+      navigate("/dashboard", { replace: true });
     } finally {
       setBusy(false);
     }

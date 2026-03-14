@@ -1,4 +1,4 @@
-import { readJson, writeJson } from "../../utils/storage";
+import { readJson, writeJson } from "../../../utils/storage";
 import { CART_STORAGE_PREFIX } from "./cart.constants";
 
 export function cartKey(userId) {
@@ -14,4 +14,3 @@ export function writeCart(userId, items) {
   if (!userId) return;
   writeJson(cartKey(userId), items);
 }
-

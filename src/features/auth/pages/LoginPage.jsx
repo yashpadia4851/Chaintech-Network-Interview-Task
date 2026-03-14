@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import { Button } from "../../../shared/Button";
 import { Input } from "../../../shared/Input";
 import { ThemeToggle } from "../../../shared/ThemeToggle";
-import { useAuth } from "../useAuth";
+import { useAuth } from "../hooks/useAuth";
 
 export default function LoginPage() {
   const { login } = useAuth();

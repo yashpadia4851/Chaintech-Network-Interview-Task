@@ -4,9 +4,9 @@ import { BrowserRouter } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import "./index.css";
 import App from "./App.jsx";
-import { AuthProvider } from "./features/auth/AuthContext.jsx";
-import { CartProvider } from "./features/cart/CartContext.jsx";
-import { ThemeProvider } from "./app/ThemeContext.jsx";
+import { AuthProvider } from "./features/auth/context/AuthContext.jsx";
+import { CartProvider } from "./features/cart/context/CartContext.jsx";
+import { ThemeProvider } from "./router/context/ThemeContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>

@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import { Button } from "../../../shared/Button";
 import { EmptyState } from "../../../shared/EmptyState";
 import { formatCurrency } from "../../../utils/format";
-import { useCart } from "../useCart";
+import { useCart } from "../hooks/useCart";
 import { CartItemRow } from "../components/CartItemRow";
 
 export default function CartPage() {

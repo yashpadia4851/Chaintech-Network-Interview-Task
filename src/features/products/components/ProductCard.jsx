@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import { Button } from "../../../shared/Button";
 import { formatCurrency } from "../../../utils/format";
-import { useCart } from "../../cart/useCart";
+import { useCart } from "../../cart/hooks/useCart";
 
 export function ProductCard({ product }) {
   const { id, title, price, rating, category } = product;

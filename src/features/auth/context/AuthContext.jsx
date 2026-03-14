@@ -1,7 +1,7 @@
 import React, { createContext, useCallback, useEffect, useMemo, useState } from "react";
 import toast from "react-hot-toast";
-import { clearSession, getSession, getUsers, setSession, setUsers } from "./authStorage";
-import { SESSION_DURATION_MS } from "./auth.constants";
+import { clearSession, getSession, getUsers, setSession, setUsers } from "../constants/authStorage";
+import { SESSION_DURATION_MS } from "../constants/auth.constants";
 
 export const AuthContext = createContext(null);
 
@@ -127,4 +127,3 @@ export function AuthProvider({ children }) {
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
-

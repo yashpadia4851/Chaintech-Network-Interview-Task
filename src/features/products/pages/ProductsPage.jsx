@@ -74,7 +74,6 @@ export default function ProductsPage() {
             ))}
           </div>
 
-          {/* Sentinel for infinite scroll */}
           {hasMore && (
             <div ref={sentinelRef} className="flex justify-center py-6">
               {loadingMore && (

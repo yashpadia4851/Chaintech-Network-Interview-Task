@@ -1,6 +1,6 @@
 import React, { createContext, useCallback, useEffect, useMemo, useReducer } from "react";
-import { useAuth } from "../auth/useAuth";
-import { readCart, writeCart } from "./cartStorage";
+import { useAuth } from "../../auth/hooks/useAuth";
+import { readCart, writeCart } from "../constants/cartStorage";
 
 export const CartContext = createContext(null);
 
@@ -100,4 +100,3 @@ export function CartProvider({ children }) {
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }
-

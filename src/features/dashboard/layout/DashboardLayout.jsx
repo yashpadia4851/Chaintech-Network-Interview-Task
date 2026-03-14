@@ -8,8 +8,8 @@ import {
 } from "react-router-dom";
 import { Button } from "../../../shared/Button";
 import { ThemeToggle } from "../../../shared/ThemeToggle";
-import { useAuth } from "../../auth/useAuth";
-import { useCart } from "../../cart/useCart";
+import { useAuth } from "../../auth/hooks/useAuth";
+import { useCart } from "../../cart/hooks/useCart";
 
 function formatRemaining(ms) {
   const total = Math.ceil(ms / 1000);
